@@ -4,9 +4,9 @@
 
 ### 📌 Overview
 
-SmartHire AI is an AI-powered resume screening system that helps recruiters analyze resumes efficiently. The application uses multiple AI agents to automate resume parsing, skill extraction, candidate evaluation, resume scoring, and AI-generated feedback.
+SmartHire AI is an AI-powered resume screening and candidate evaluation platform designed to help recruiters automate the hiring process. The system uses multiple AI agents to analyze resumes, extract skills, score candidates against job requirements, evaluate strengths and weaknesses, and generate AI-powered feedback using Google Gemini.
 
-This project reduces manual screening effort and provides recruiters with quick insights into candidate suitability.
+This project demonstrates the practical application of AI agents in recruitment and human resource management.
 
 ---
 
@@ -14,57 +14,59 @@ This project reduces manual screening effort and provides recruiters with quick 
 
 ### ✅ Resume Upload Agent
 
-Upload resumes in PDF format.
+Allows recruiters to upload resumes in PDF format.
 
 ### ✅ Resume Parser Agent
 
-Extracts text from resumes using PDF processing.
+Extracts text content from uploaded resumes using PDF processing.
 
 ### ✅ Skill Extraction Agent
 
-Identifies technical skills from the resume.
+Identifies technical skills from resume content.
 
 ### ✅ Resume Scoring Agent
 
-Compares the resume against a job description and generates a matching score.
+Compares candidate resumes with a predefined job description and generates a matching score.
 
 ### ✅ Candidate Evaluation Agent
 
-Identifies strengths and missing skills.
+Determines candidate strengths and identifies missing skills.
 
 ### ✅ Gemini AI Analysis Agent
 
 Generates:
 
 * Professional Summary
-* Strengths
-* Weaknesses
+* Candidate Strengths
+* Candidate Weaknesses
 * Improvement Suggestions
 * Interview Questions
 
 ### ✅ Candidate Ranking Agent
 
-Ranks candidates based on resume scores.
+Ranks candidates based on their resume scores.
 
 ---
 
 ## 🏗 System Architecture
 
+```text
 Upload Resume
-↓
+      ↓
 Resume Parser Agent
-↓
+      ↓
 Skill Extraction Agent
-↓
+      ↓
 Resume Scoring Agent
-↓
+      ↓
 Candidate Evaluation Agent
-↓
+      ↓
 Gemini AI Analysis Agent
-↓
+      ↓
 Candidate Ranking Agent
-↓
+      ↓
 Final Candidate Report
+```
 
 ---
 
@@ -74,37 +76,37 @@ Final Candidate Report
 * Streamlit
 * PDFPlumber
 * Google Gemini API
-* Git & GitHub
+* Git
+* GitHub
 
 ---
 
 ## 📂 Project Structure
 
-SmartHire-AI/
-
+```text
+SmartHire-AI
+│
 ├── app.py
-
 ├── resume_parser.py
-
 ├── skill_extractor.py
-
 ├── scorer.py
-
 ├── candidate_evaluator.py
-
 ├── candidate_ranker.py
-
 ├── gemini_agent.py
-
-├── requirements.txt
-
 ├── README.md
-
-├── data/
-
-│ └── job_description.txt
-
-└── screenshots/
+├── requirements.txt
+│
+├── data
+│   └── job_description.txt
+│
+├── screenshots
+│   ├── dashboard.png
+│   ├── score.png
+│   ├── skills.png
+│   └── analysis.png
+│
+└── venv
+```
 
 ---
 
@@ -112,54 +114,93 @@ SmartHire-AI/
 
 ### Dashboard
 
-(Add dashboard screenshot here)
+![Dashboard](screenshots/dashboard.png)
 
-### Resume Analysis
+### Resume Score
 
-(Add resume analysis screenshot here)
+![Resume Score](screenshots/score.png)
 
-### Gemini AI Feedback
+### Skills Detection
 
-(Add Gemini AI screenshot here)
+![Skills Detection](screenshots/skills.png)
+
+### AI Resume Analysis
+
+![AI Resume Analysis](screenshots/analysis.png)
 
 ---
 
-## ▶️ How to Run
+## ▶️ How to Run the Project
 
 ### Clone Repository
 
-git clone YOUR_GITHUB_REPOSITORY_LINK
+```bash
+git clone https://github.com/YOUR_USERNAME/SmartHire-AI.git
+```
 
-### Move to Project Folder
+### Navigate to Project Folder
 
+```bash
 cd SmartHire-AI
+```
 
 ### Install Dependencies
 
+```bash
 pip install -r requirements.txt
+```
 
 ### Run Application
 
+```bash
 python -m streamlit run app.py
+```
 
 ---
 
-## 🎯 Future Enhancements
+## 🎯 Project Workflow
+
+1. Upload Resume
+2. Extract Resume Text
+3. Detect Candidate Skills
+4. Compare Resume with Job Description
+5. Generate Resume Score
+6. Evaluate Candidate Strengths and Weaknesses
+7. Generate AI Feedback using Gemini
+8. Produce Final Candidate Report
+
+---
+
+## 📈 Results
+
+* Automated resume screening process
+* Faster candidate evaluation
+* AI-powered feedback generation
+* Improved recruiter productivity
+* Reduced manual effort in hiring
+
+---
+
+## 🔮 Future Enhancements
 
 * Multiple Resume Upload
 * Advanced Candidate Ranking
 * Recruiter Dashboard
-* Resume Recommendation System
 * Job Description Upload Feature
-
----
-
-## 💡 Project Outcome
-
-SmartHire AI automates resume screening and candidate evaluation using multiple AI agents, helping recruiters save time and improve hiring efficiency.
+* Resume Recommendation System
+* Cloud Deployment
 
 ---
 
 ## 👩‍💻 Author
 
 Khushi
+
+---
+
+## ⭐ Acknowledgements
+
+This project was developed as part of an AI Capstone Project using Python, Streamlit, and Google Gemini AI.
+
+
+
