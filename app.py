@@ -4,6 +4,7 @@ from skill_extractor import extract_skills
 from candidate_evaluator import evaluate_candidate
 from scorer import score_resume
 from gemini_agent import analyze_resume
+from multi_resume_ranker import rank_resumes
 
 # Page Configuration
 st.set_page_config(
@@ -22,47 +23,50 @@ st.info("""
 SmartHire AI uses multiple AI agents to:
 
 • Parse resumes automatically
-
 • Extract candidate skills
-
 • Score resumes against job requirements
-
 • Evaluate strengths and weaknesses
-
 • Generate AI-powered feedback
-
-• Assist recruiters in candidate screening
+• Rank multiple candidates automatically
 """)
 
-# Upload Resume
+# -----------------------------
+# SINGLE RESUME ANALYSIS
+# -----------------------------
+
+st.header("📄 Single Resume Analysis")
+
 uploaded_file = st.file_uploader(
     "Upload Resume (PDF)",
-    type=["pdf"]
+    type=["pdf"],
+    key="single"
 )
 
 if uploaded_file is not None:
 
     try:
 
-        # Extract Text
         text = extract_text(uploaded_file)
 
-        # Extract Skills
         skills = extract_skills(text)
 
-        # Evaluate Candidate
         strengths, missing = evaluate_candidate(skills)
 
-        # Load Job Description
-        with open("data/job_description.txt", "r", encoding="utf-8") as file:
+        with open(
+            "data/job_description.txt",
+            "r",
+            encoding="utf-8"
+        ) as file:
+
             jd_text = file.read()
 
-        # Score Resume
-        score = score_resume(text, jd_text)
+        score = score_resume(
+            text,
+            jd_text
+        )
 
         st.success("✅ Resume Uploaded Successfully!")
 
-        # Dashboard Metrics
         col1, col2, col3 = st.columns(3)
 
         with col1:
@@ -76,36 +80,23 @@ if uploaded_file is not None:
 
         st.markdown("---")
 
-        # Skills
         st.subheader("🛠 Detected Skills")
 
-        if skills:
-            for skill in skills:
-                st.write("✅", skill)
-        else:
-            st.write("No skills detected.")
+        for skill in skills:
+            st.write("✅", skill)
 
-        # Strengths
         st.subheader("💪 Strengths")
 
-        if strengths:
-            for skill in strengths:
-                st.write("✅", skill)
-        else:
-            st.write("No strengths identified.")
+        for skill in strengths:
+            st.write("✅", skill)
 
-        # Missing Skills
         st.subheader("⚠ Missing Skills")
 
-        if missing:
-            for skill in missing:
-                st.write("❌", skill)
-        else:
-            st.write("No missing skills.")
+        for skill in missing:
+            st.write("❌", skill)
 
         st.markdown("---")
 
-        # Resume Text
         st.subheader("📄 Extracted Resume Text")
 
         st.text_area(
@@ -116,7 +107,6 @@ if uploaded_file is not None:
 
         st.markdown("---")
 
-        # Gemini AI Analysis
         st.subheader("🤖 AI Resume Analysis")
 
         if st.button("Analyze Resume with AI"):
@@ -130,3 +120,64 @@ if uploaded_file is not None:
     except Exception as e:
 
         st.error(f"Error: {e}")
+
+# -----------------------------
+# MULTI RESUME RANKING
+# -----------------------------
+
+st.markdown("---")
+
+st.header("🏆 Multi Resume Ranking")
+
+uploaded_files = st.file_uploader(
+    "Upload Multiple Resumes",
+    type=["pdf"],
+    accept_multiple_files=True,
+    key="multiple"
+)
+
+if uploaded_files:
+
+    try:
+
+        with open(
+            "data/job_description.txt",
+            "r",
+            encoding="utf-8"
+        ) as file:
+
+            jd_text = file.read()
+
+        ranked_candidates = rank_resumes(
+            uploaded_files,
+            jd_text
+        )
+
+        st.success("✅ Ranking Generated Successfully!")
+
+        st.subheader("🏆 Candidate Rankings")
+
+        rank = 1
+
+        for candidate in ranked_candidates:
+
+            if rank == 1:
+                medal = "🥇"
+            elif rank == 2:
+                medal = "🥈"
+            elif rank == 3:
+                medal = "🥉"
+            else:
+                medal = "🏅"
+
+            st.write(
+                f"{medal} Rank {rank}: "
+                f"{candidate['name']} "
+                f"(Score: {candidate['score']})"
+            )
+
+            rank += 1
+
+    except Exception as e:
+
+        st.error(f"Ranking Error: {e}")
